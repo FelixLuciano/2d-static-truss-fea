@@ -22,6 +22,7 @@ There are many different finite element analysis software packages available on 
 
 The [Gauss-Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method) is an iterative method for solving systems of linear equations, which can be used in the context of finite element analysis (FEA) to solve for unknown nodal displacements in a finite element model. It is a type of relaxation method that is used to find approximate solutions to systems of equations by iteratively improving upon an initial guess.
 
+
 ## Examples
 
 ### Bar
@@ -35,6 +36,14 @@ The [Gauss-Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_met
 ![Bridge example](examples/bridge.gif)
 
 [View source](examples/bridge.py)
+
+
+## Authors
+
+|![](https://avatars.githubusercontent.com/u/62605906?v=4)|![](https://avatars.githubusercontent.com/u/43121361?v=4)|![](https://avatars.githubusercontent.com/u/22255332?v=4)|
+|:-------------------------------------------------------:|:-------------------------------------------------------:|:-------------------------------------------------------:|
+|[Diogo Duarte](https://github.com/DiogoDuarteInsper)     |[Joras Oliveira](https://github.com/JorasOliveira)       |[Luciano Felix Dias](https://github.com/FelixLuciano)    |
+
 
 ## License
 This project is [MIT licensed](LICENSE)!
