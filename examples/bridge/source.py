@@ -1,3 +1,4 @@
+from copy import deepcopy
 from typing import List
 
 import numpy as np
@@ -111,21 +112,32 @@ class Bridge(Truss):
 
 
 def make_bridge():
+    LOAD = 120 # kg
+    G = 9.81 # m/s²
+    MDF_YOUNG_MODULUS = 21_000_000
+
     node1 = Node(0, 0)
     node2 = Node(400, 0)
     node3 = Node(0, -60)
     node4 = Node(400, -60)
+    node5 = Node(-60, 0)
+    node6 = Node(460, 0)
 
-    mat = Material(21_000_000, 45)
-    bridge = Bridge(node1, node2, node3, node4, steps=8).set_material(mat)
+    MDF = Material(MDF_YOUNG_MODULUS * 1E-3**2 / 1E-3, 3*15)
+    bridge = Bridge(node1, node2, node3, node4, steps=8).set_material(MDF)
+
+    bridge.make_beam(node5, bridge.arc[0].node2)
+    bridge.make_beam(node6, bridge.arc[-1].node1)
 
     node1.displacement.set_x().set_y()
     node2.displacement.set_x().set_y()
     node3.displacement.set_x().set_y()
     node4.displacement.set_x().set_y()
+    node5.displacement.set_x().set_y()
+    node6.displacement.set_x().set_y()
 
-    bridge.arc[3].node1.apply_force(0, -1_000_000)
-    bridge.arc[3].node2.apply_force(0, -1_000_000)
+    bridge.arc[3].node1.apply_force(0, LOAD * -G / 2)
+    bridge.arc[3].node2.apply_force(0, LOAD * -G / 2)
 
     return bridge
 
@@ -141,6 +153,7 @@ def plot(bridge, solution):
 
     bridge.plot(color="#BBB", show_lengths=False, show_nodes=False)
     solution.plot_force(label="Internal force [N]", show_lengths=False, show_nodes=True)
+    plt.tight_layout()
 
 
 if __name__ == "__main__":
@@ -148,11 +161,20 @@ if __name__ == "__main__":
     solution = Solve(bridge)
     fig = plt.figure(figsize=(14, 5))
 
+    frames = []
+
     def animate(i):
         fig.clear()
-        solution.execute()
-        plot(bridge, solution)
 
-    ani = FuncAnimation(fig, animate, frames=20)
+        if i < 30:
+            solution.execute()
+            plot(bridge, solution)
 
-    ani.save("examples/bridge.gif", fps=3)
+            frames.append(deepcopy(solution))
+        else:
+            plot(bridge, frames[30 - i - 1])
+
+
+    ani = FuncAnimation(fig, animate, frames=60)
+
+    ani.save("examples/bridge/output.gif", fps=30)
