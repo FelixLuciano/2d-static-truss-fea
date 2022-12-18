@@ -25,11 +25,11 @@ The [Gauss-Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_met
 
 ## Examples
 
-### Bar
+### Shelf
 
-![Bar example](examples/bar.png)
+![Shelf example](examples/shelf.png)
 
-[View source](examples/bar.py)
+[View source](examples/shelf.py)
 
 ### Bridge
 
