@@ -7,7 +7,7 @@ class Method:
 
 class GaussSeidel_method(Method):
     @staticmethod
-    def solve(k:np.ndarray, y:np.ndarray, tol:float=1e-10):
+    def solve(k: np.ndarray, y: np.ndarray, tol: float = 1e-10):
         x = np.zeros_like(y, dtype=np.float64)
         conv = [False] * y.shape[0]
 
@@ -31,9 +31,9 @@ class GaussSeidel_method(Method):
         return x
 
     @staticmethod
-    def _xi (k:np.ndarray, x:np.ndarray, y:np.ndarray, i:int):
+    def _xi(k: np.ndarray, x: np.ndarray, y: np.ndarray, i: int):
         return (y[i] - (k[i, :].dot(x) - k[i, i] * x[i])) / k[i, i]
 
     @staticmethod
-    def _get_err(x:float, xi:float):
+    def _get_err(x: float, xi: float):
         return np.abs((xi - x) / xi)

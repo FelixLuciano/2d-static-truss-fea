@@ -3,9 +3,7 @@ from setuptools import setup
 
 def parse_requirements(filename):
     return [
-        line.strip()
-        for line in open(filename)
-        if line and not line.startswith("#")
+        line.strip() for line in open(filename) if line and not line.startswith("#")
     ]
 
 

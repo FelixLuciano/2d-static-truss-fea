@@ -1,24 +1,23 @@
 from typing import List
 
 import numpy as np
-from matplotlib import pyplot as plt
 from matplotlib import patches
-from matplotlib.animation import FuncAnimation, PillowWriter
+from matplotlib import pyplot as plt
+from matplotlib.animation import FuncAnimation
+from truss_fea import Beam, Material, Node, Solve, Truss
 
-from truss_fea import Truss, Beam, Node, Material, Solve
 
-
-plt.style.use('seaborn-v0_8')
+plt.style.use("seaborn-v0_8")
 
 
 class Bridge(Truss):
-    arc:List[Beam]
-    deck:List[Beam]
-    pillars:List[Beam]
-    trelices:List[Beam]
-    base:List[Beam]
+    arc: List[Beam]
+    deck: List[Beam]
+    pillars: List[Beam]
+    trelices: List[Beam]
+    base: List[Beam]
 
-    def __init__(self, deck1:Node, deck2:Node, base1:Node, base2:Node, steps:int):
+    def __init__(self, deck1: Node, deck2: Node, base1: Node, base2: Node, steps: int):
         super().__init__()
 
         self.arc = []
@@ -33,9 +32,9 @@ class Bridge(Truss):
         self._make_trelices()
         self._make_base(base1, base2)
 
-    def _make_arc(self, node1:Node, node2:Node, steps:int):
-        def cicloid(theta:float, length:float):
-            r = length / (2*np.pi)
+    def _make_arc(self, node1: Node, node2: Node, steps: int):
+        def cicloid(theta: float, length: float):
+            r = length / (2 * np.pi)
             x = r * (theta - np.sin(theta))
             y = r * (1 - np.cos(theta))
 
@@ -45,9 +44,9 @@ class Bridge(Truss):
         alpha = node1.get_angle_from(node2)
 
         node0 = node1
-        for theta in np.linspace(0, 2*np.pi, steps)[1:-1]:
+        for theta in np.linspace(0, 2 * np.pi, steps)[1:-1]:
             x, y = cicloid(theta, length)
-            node = self.make_node(x+node1.x, y+node1.y).rotate_by(alpha, node1)
+            node = self.make_node(x + node1.x, y + node1.y).rotate_by(alpha, node1)
             beam = self.make_beam(node0, node)
             node0 = node
 
@@ -97,10 +96,10 @@ class Bridge(Truss):
             self.trelices.append(trelice1)
             self.trelices.append(trelice2)
 
-    def _make_base(self, node1:Node, node2:Node):
+    def _make_base(self, node1: Node, node2: Node):
         meam = len(self.deck) // 2
 
-        for deck_beam in self.deck[1:meam+1]:
+        for deck_beam in self.deck[1 : meam + 1]:
             beam = self.make_beam(node1, deck_beam.node1)
 
             self.base.append(beam)
@@ -109,6 +108,7 @@ class Bridge(Truss):
             beam = self.make_beam(node2, deck_beam.node2)
 
             self.base.append(beam)
+
 
 def make_bridge():
     node1 = Node(0, 0)
@@ -128,6 +128,7 @@ def make_bridge():
     bridge.arc[3].node2.apply_force(0, -1_000_000)
 
     return bridge
+
 
 def plot(bridge, solution):
     ax = plt.axes()

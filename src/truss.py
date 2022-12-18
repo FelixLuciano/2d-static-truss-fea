@@ -2,22 +2,22 @@ from typing import List
 
 import numpy as np
 
-from .node import Node
 from .beam import Beam
 from .material import Material
+from .node import Node
 
 
 class Truss:
-    nodes:List[Node]
-    beams:List[Beam]
-    material:Material
+    nodes: List[Node]
+    beams: List[Beam]
+    material: Material
 
     def __init__(self):
         self.nodes = []
         self.beams = []
         self.material = None
 
-    def add_node(self, node:Node):
+    def add_node(self, node: Node):
         last_id = self.nodes[-1].id if len(self.nodes) > 0 else 0
 
         if node not in self.nodes:
@@ -27,7 +27,7 @@ class Truss:
 
         return self
 
-    def add_beam(self, beam:Beam):
+    def add_beam(self, beam: Beam):
         last_id = self.beams[-1].id if len(self.beams) > 0 else 0
 
         if beam not in self.beams:
@@ -47,21 +47,21 @@ class Truss:
 
         return self
 
-    def make_node(self, x:float, y:float):
+    def make_node(self, x: float, y: float):
         node = Node(x, y)
 
         self.add_node(node)
 
         return node
 
-    def make_beam(self, node1:Node, node2:Node):
+    def make_beam(self, node1: Node, node2: Node):
         beam = Beam(node1, node2).set_material(self.material)
 
         self.add_beam(beam)
 
         return beam
 
-    def set_material(self, material:Material):
+    def set_material(self, material: Material):
         self.material = material
 
         for beam in self.beams:
@@ -74,4 +74,4 @@ class Truss:
             beam.plot(show_lengths=show_lengths, zorder=zorder, *args, **kwargs)
 
         for node in self.nodes:
-            node.plot(show_nodes=show_nodes, zorder=zorder+1)
+            node.plot(show_nodes=show_nodes, zorder=zorder + 1)

@@ -1,19 +1,19 @@
 from typing import List
 
-import numpy as np
 import matplotlib as mpl
+import numpy as np
 from matplotlib import pyplot as plt
 
-from .force import Force
 from .displacement import Displacement
+from .force import Force
 
 
 class Node:
-    id:int
-    x:float
-    y:float
-    forces:List[Force]
-    displacement:Displacement
+    id: int
+    x: float
+    y: float
+    forces: List[Force]
+    displacement: Displacement
 
     def __init__(self, x: float, y: float):
         self.x = x
@@ -39,11 +39,11 @@ class Node:
 
         return self
 
-    def add_force(self, force:Force):
+    def add_force(self, force: Force):
         if force not in self.forces:
             self.forces.append(force)
 
-    def apply_force(self, x:float, y:float):
+    def apply_force(self, x: float, y: float):
         force = Force(x, y)
 
         self.add_force(force)
@@ -60,7 +60,7 @@ class Node:
 
         return Force(Rx, Ry)
 
-    def plot(self, show_nodes:bool, zorder:int, *args, **kwargs):
+    def plot(self, show_nodes: bool, zorder: int, *args, **kwargs):
         dx, dy = self.displacement.get_axis()
 
         if dx and dy:
@@ -74,7 +74,9 @@ class Node:
         else:
             marker = "none"
 
-        plt.scatter([self.x], [self.y], c="#27B", marker=marker, zorder=zorder, *args, **kwargs)
+        plt.scatter(
+            [self.x], [self.y], c="#27B", marker=marker, zorder=zorder, *args, **kwargs
+        )
 
         if show_nodes and len(self.forces) > 0:
             resultant = self.get_resultant_force()
@@ -83,4 +85,6 @@ class Node:
             t = mpl.markers.MarkerStyle(marker=5)
             t._transform = t.get_transform().rotate_deg(theta)
 
-            plt.scatter([self.x], [self.y], c="#B22", marker=t, s=100, zorder=zorder+1)
+            plt.scatter(
+                [self.x], [self.y], c="#B22", marker=t, s=100, zorder=zorder + 1
+            )

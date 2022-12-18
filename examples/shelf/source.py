@@ -1,15 +1,14 @@
-from matplotlib import pyplot as plt
 from matplotlib import patches
+from matplotlib import pyplot as plt
+from truss_fea import Material, Solve, Truss
 
-from truss_fea import Truss, Material, Solve
 
-
-plt.style.use('seaborn-v0_8')
+plt.style.use("seaborn-v0_8")
 
 
 if __name__ == "__main__":
-    MASS = 50   # in Kg
-    G = 9.81    # gravitational acceleration
+    MASS = 50  # in Kg
+    G = 9.81  # gravitational acceleration
 
     wood = Material(95_000_000, 0.02)
     steel = Material(200_000_000, 0.01)
@@ -35,12 +34,12 @@ if __name__ == "__main__":
     plt.figure(figsize=(5, 5))
 
     ax = plt.axes()
-    ax.add_patch(patches.Rectangle((.5, 0), .5, 1, color="#CCC"))
-    ax.add_patch(patches.Rectangle((-.5, -1.5), .5, 4, color="#CCC"))
+    ax.add_patch(patches.Rectangle((0.5, 0), 0.5, 1, color="#CCC"))
+    ax.add_patch(patches.Rectangle((-0.5, -1.5), 0.5, 4, color="#CCC"))
 
     plt.title("Shelf example")
     plt.xlabel("Length [m]")
     plt.ylabel("Height [m]")
     shelf.plot(color="#BBB", show_lengths=False, show_nodes=False)
     solution.plot_force(label="Internal force [N]", show_lengths=False)
-    plt.savefig('examples/shelf.png', bbox_inches="tight")
+    plt.savefig("examples/shelf.png", bbox_inches="tight")
