@@ -51,5 +51,14 @@ pip install https://github.com/FelixLuciano/2d-static-truss-fea/archive/refs/hea
 |[Diogo Duarte](https://github.com/DiogoDuarteInsper)     |[Joras Oliveira](https://github.com/JorasOliveira)       |[Luciano Felix Dias](https://github.com/FelixLuciano)    |
 
 
+## Competition
+
+### Photos
+<details>
+<summary>Expand</summary>
+<img src="assets/image/20221103_193053.jpg" alt="Photo">
+<img src="assets/image/20221103_193049.jpg" alt="Photo">
+</details>
+
 ## License
 This project is [MIT licensed](LICENSE)!
