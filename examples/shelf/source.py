@@ -42,4 +42,4 @@ if __name__ == "__main__":
     plt.ylabel("Height [m]")
     shelf.plot(color="#BBB", show_lengths=False, show_nodes=False)
     solution.plot_force(label="Internal force [N]", show_lengths=False)
-    plt.savefig("examples/shelf.png", bbox_inches="tight")
+    plt.savefig("examples/shelf/output.png", bbox_inches="tight")
