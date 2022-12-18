@@ -60,9 +60,6 @@ class Solve:
         self.plot(*args, **kwargs)
         plt.colorbar(sm, label=label)
 
-    def get_reactions(self):
-        return self.forces[self.mask]
-
     def _execute_mask(self):
         self.mask = np.array(
             [node.displacement.get_axis() for node in self.output.nodes]
