@@ -8,10 +8,12 @@ from .material import Material
 class Beam:
     id:int = None
     material:Material
+    color:str
 
-    def __init__(self, node1: Node, node2: Node):
+    def __init__(self, node1: Node, node2: Node, color:str="#BBB"):
         self.node1 = node1
         self.node2 = node2
+        self.color = color
 
     @property
     def length(self):
@@ -52,7 +54,10 @@ class Beam:
 
         return self
 
-    def plot(self, show_lengths:bool, *args, **kwargs):
+    def set_color(self, color:str):
+        self.color = color
+
+    def plot(self, show_lengths:bool, color:str=None, *args, **kwargs):
         mx = (self.node1.x + self.node2.x) / 2
         my = (self.node1.y + self.node2.y) / 2
         alpha = np.degrees(self.angle)
@@ -61,7 +66,11 @@ class Beam:
             alpha += 180
 
         plt.plot(
-            [self.node1.x, self.node2.x], [self.node1.y, self.node2.y], *args, **kwargs
+            [self.node1.x, self.node2.x],
+            [self.node1.y, self.node2.y],
+            c=color or self.color,
+            *args,
+            **kwargs,
         )
 
         if show_lengths:
