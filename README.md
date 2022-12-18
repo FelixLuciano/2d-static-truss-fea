@@ -23,6 +23,93 @@ There are many different finite element analysis software packages available on 
 The [Gauss-Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method) is an iterative method for solving systems of linear equations, which can be used in the context of finite element analysis (FEA) to solve for unknown nodal displacements in a finite element model. It is a type of relaxation method that is used to find approximate solutions to systems of equations by iteratively improving upon an initial guess.
 
 
+### Beam Element
+
+In structural engineering, a [beam element](https://en.wikipedia.org/wiki/Beam_(structure)) is a structural element that is capable of withstanding load primarily by resisting bending. Beam elements are usually straight and slender, and they are often used to construct the vertical supports of a structure, such as columns, and the horizontal members that transfer loads from the vertical supports to the foundation, such as beams and girders.
+
+Beam elements can be made of various materials, including concrete, steel, timber, and composite materials. They are typically designed to resist loads that are applied along their length, such as gravity loads, wind loads, and earthquake loads. The strength and stiffness of beam elements are typically determined by the size, shape, and material properties of the element.
+
+In structural analysis and design, beam elements are often modeled using mathematical equations that describe the behavior of the element under various load conditions. These equations can be used to predict the deflections, stresses, and strains in the beam element, and to design the element to meet the required strength and stiffness criteria.
+
+![Beam element displacement](assets/image/beam-element.png)
+
+$$
+\begin{Bmatrix} 
+    \bar u_1 \\
+    \bar u_2 \\
+\end{Bmatrix}
+=
+\underbrace{
+    \begin{bmatrix} 
+        \cos(\theta) & \sin(\theta) & 0 & 0 \\
+        0 & 0 & \cos(\theta) & \sin(\theta)\\
+    \end{bmatrix}
+}_T
+\cdot
+\begin{Bmatrix} 
+    u_1 \\
+    v_1 \\
+    u_2 \\
+    v_2 \\
+\end{Bmatrix}
+$$
+
+$$
+x=\bar u_2-\bar u_1=
+\begin{bmatrix} 
+    -\cos(\theta) & -\sin(\theta) & \cos(\theta) & \sin(\theta) \\
+\end{bmatrix}
+\cdot
+\begin{Bmatrix} 
+    u_1 \\
+    v_1 \\
+    u_2 \\
+    v_2 \\
+\end{Bmatrix}
+$$
+
+$$
+\begin{Bmatrix} 
+    \bar F_1 \\
+    \bar F_2 \\
+\end{Bmatrix}
+=
+\underbrace{
+    \frac{EA}{l}
+    \begin{bmatrix} 
+        1 & -1 \\
+        -1 & 1 \\
+    \end{bmatrix}
+}_{\bar K_e}
+\cdot
+\begin{Bmatrix} 
+    \bar u_1 \\
+    \bar u_2 \\
+\end{Bmatrix}
+$$
+
+$$
+\begin{Bmatrix} 
+    F_1 \\
+    F_2 \\
+\end{Bmatrix}
+=
+\underbrace{
+    T^T\cdot\bar K_e\cdot T
+}_{K_e}
+\cdot
+\begin{Bmatrix} 
+    u_1 \\
+    v_1 \\
+    u_2 \\
+    v_2 \\
+\end{Bmatrix}
+$$
+
+$$
+\bar F=K_e\cdot x
+$$
+
 ## Instalation
 ```
 pip install https://github.com/FelixLuciano/2d-static-truss-fea/archive/refs/heads/master.tar.gz
