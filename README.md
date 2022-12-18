@@ -27,15 +27,15 @@ The [Gauss-Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_met
 
 ### Shelf
 
-![Shelf example](examples/shelf.png)
+![Shelf example](examples/shelf/output.png)
 
-[View source](examples/shelf.py)
+[View source](examples/shelf/source.py)
 
 ### Bridge
 
-![Bridge example](examples/bridge.gif)
+![Bridge example](examples/bridge/output.gif)
 
-[View source](examples/bridge.py)
+[View source](examples/bridge/source.py)
 
 
 ## Authors
