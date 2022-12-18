@@ -129,7 +129,7 @@ def make_bridge():
 
     return bridge
 
-def plot(bridge, deformed_bridge):
+def plot(bridge, solution):
     ax = plt.axes()
     ax.add_patch(patches.Rectangle((-70, -70), 70, 70, color="#BBB"))
     ax.add_patch(patches.Rectangle((400, -70), 70, 70, color="#BBB"))
@@ -139,18 +139,19 @@ def plot(bridge, deformed_bridge):
     plt.ylabel("Height [mm]")
 
     bridge.plot(color="#BBB", show_lengths=False, show_nodes=False)
-    deformed_bridge.plot(show_lengths=False, show_nodes=True)
+    solution.plot_force(label="Internal force [N]", show_lengths=False, show_nodes=True)
 
 
 if __name__ == "__main__":
     bridge = make_bridge()
     solution = Solve(bridge)
+    fig = plt.figure(figsize=(14, 5))
 
     def animate(i):
+        fig.clear()
         solution.execute()
-        plot(bridge, solution.output)
+        plot(bridge, solution)
 
-    fig = plt.figure(figsize=(14, 5))
-    ani = FuncAnimation(fig, animate, blit=False, repeat=True, frames=20)
+    ani = FuncAnimation(fig, animate, frames=20)
 
-    ani.save("examples/bridge.gif", writer=PillowWriter(fps=3))
+    ani.save("examples/bridge.gif", fps=3)
