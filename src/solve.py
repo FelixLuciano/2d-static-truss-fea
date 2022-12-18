@@ -35,20 +35,20 @@ class Solve:
 
         return self
 
-    def plot_deformation(self, label: str = None, cmap=plt.cm.rainbow, *args, **kwargs):
+    def plot_deformation(self, label: str = None, cmap=plt.cm.bwr, *args, **kwargs):
         self._plot(self.internal_deformation, label, cmap, *args, **kwargs)
 
-    def plot_tension(self, label: str = None, cmap=plt.cm.rainbow, *args, **kwargs):
+    def plot_tension(self, label: str = None, cmap=plt.cm.bwr, *args, **kwargs):
         self._plot(self.internal_tension, label, cmap, *args, **kwargs)
 
-    def plot_force(self, label: str = None, cmap=plt.cm.rainbow, *args, **kwargs):
+    def plot_force(self, label: str = None, cmap=plt.cm.bwr, *args, **kwargs):
         self._plot(self.internal_forces, label, cmap, *args, **kwargs)
 
     def plot(self, *args, **kwargs):
         self.output.plot(*args, **kwargs)
 
     def _plot(self, attr: np.ndarray, label: str, cmap, *args, **kwargs):
-        norm = matplotlib.colors.Normalize(vmin=attr.min(), vmax=attr.max())
+        norm = matplotlib.colors.TwoSlopeNorm(vmin=attr.min(), vcenter=0.0, vmax=attr.max(), )
         sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
 
         for beam in self.output.beams:
