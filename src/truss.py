@@ -69,9 +69,9 @@ class Truss:
 
         return self
 
-    def plot(self, color="#888", show_lengths=True, show_nodes=True, zorder=1, *args, **kwargs):
+    def plot(self, show_lengths=True, show_nodes=True, zorder=1, *args, **kwargs):
         for beam in self.beams:
-            beam.plot(c=color, show_lengths=show_lengths, zorder=zorder, *args, **kwargs)
+            beam.plot(show_lengths=show_lengths, zorder=zorder, *args, **kwargs)
 
         for node in self.nodes:
             node.plot(show_nodes=show_nodes, zorder=zorder+1)

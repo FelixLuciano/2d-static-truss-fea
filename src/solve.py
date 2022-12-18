@@ -1,9 +1,11 @@
 from copy import deepcopy
 
+import matplotlib.colors
 import numpy as np
+from matplotlib import pyplot as plt
 
+from .method import GaussSeidel_method, Method
 from .truss import Truss
-from .method import Method, GaussSeidel_method
 
 
 class Solve:
@@ -32,6 +34,31 @@ class Solve:
         self._execute_internal_force()
 
         return self
+
+    def plot_deformation(self, label:str=None, cmap=plt.cm.rainbow, *args, **kwargs):
+        self._plot(self.internal_deformation, label, cmap, *args, **kwargs)
+
+    def plot_tension(self, label:str=None, cmap=plt.cm.rainbow, *args, **kwargs):
+        self._plot(self.internal_tension, label, cmap, *args, **kwargs)
+
+    def plot_force(self, label:str=None, cmap=plt.cm.rainbow, *args, **kwargs):
+        self._plot(self.internal_forces, label, cmap, *args, **kwargs)
+
+    def plot(self, *args, **kwargs):
+        self.output.plot(*args, **kwargs)
+
+    def _plot(self, attr:np.ndarray, label:str, cmap, *args, **kwargs):
+        norm = matplotlib.colors.Normalize(vmin=attr.min(), vmax=attr.max())
+        sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
+
+        for beam in self.output.beams:
+            value = attr[beam.id - 1]
+            color = cmap(norm(value))
+
+            beam.set_color(color)
+
+        self.plot(*args, **kwargs)
+        plt.colorbar(sm, label=label)
 
     def get_reactions(self):
         return self.forces[self.mask]
