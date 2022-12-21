@@ -150,9 +150,10 @@ def plot(bridge, solution):
     plt.title("Bridge example")
     plt.xlabel("Length [mm]")
     plt.ylabel("Height [mm]")
+    plt.axis("equal")
 
-    bridge.plot(color="#BBB", show_lengths=False, show_nodes=False)
-    solution.plot_force(label="Internal force [N]", show_lengths=False, show_nodes=True)
+    bridge.plot(color="#BBB", show_labels=False, show_nodes=False)
+    solution.plot_force(label="Internal force [N]", show_labels=False, show_nodes=True)
     plt.tight_layout()
 
 
