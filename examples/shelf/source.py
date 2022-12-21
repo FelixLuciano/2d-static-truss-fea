@@ -31,10 +31,10 @@ if __name__ == "__main__":
 
     solution = Solve(shelf).execute()
 
-    plt.figure(figsize=(6, 6))
+    plt.figure(figsize=(6, 4))
 
     ax = plt.axes()
-    ax.add_patch(patches.Rectangle((0.5, 0), 0.5, .5, color="#CCC"))
+    ax.add_patch(patches.Rectangle((0.25, 0), 1, 1, color="#CCC"))
     ax.add_patch(patches.Rectangle((-0.5, -1.5), 0.5, 4, color="#CCC"))
 
     plt.title("Shelf example")

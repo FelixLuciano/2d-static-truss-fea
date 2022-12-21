@@ -43,7 +43,7 @@ if __name__ == "__main__":
 
         solution = Solve(pyramid).execute()
     
-        plt.figure(figsize=(10, 2))
+        plt.figure(figsize=(10, 4))
         plt.title("Pyramid example")
         plt.xlabel("Length [mm]")
         plt.ylabel("Height [mm]")
