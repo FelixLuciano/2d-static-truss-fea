@@ -124,6 +124,12 @@ pip install https://github.com/FelixLuciano/2d-static-truss-fea/archive/refs/hea
 
 [View source](examples/shelf/source.py)
 
+### Pyramid
+
+![Pyramid example](examples/pyramid/output.png)
+
+[View source](examples/pyramid/source.py)
+
 ### Bridge
 
 ![Bridge example](examples/bridge/output.gif)
