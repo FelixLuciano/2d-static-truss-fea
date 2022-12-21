@@ -69,9 +69,11 @@ class Truss:
 
         return self
 
-    def plot(self, show_lengths=True, show_nodes=True, zorder=1, *args, **kwargs):
-        for beam in self.beams:
-            beam.plot(show_lengths=show_lengths, zorder=zorder, *args, **kwargs)
+    def plot(self, show_nodes=True, show_labels=True, labels:List[str|int|float]=None, zorder=1, *args, **kwargs):
+        for i, beam in enumerate(self.beams):
+            label = None if not show_labels else labels[i] if labels is not None else beam.length
+
+            beam.plot(label=label, zorder=zorder, *args, **kwargs)
 
         for node in self.nodes:
             node.plot(show_nodes=show_nodes, zorder=zorder + 1)

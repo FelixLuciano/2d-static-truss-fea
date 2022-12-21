@@ -57,7 +57,7 @@ class Beam:
     def set_color(self, color:str):
         self.color = color
 
-    def plot(self, show_lengths:bool, color:str=None, *args, **kwargs):
+    def plot(self, color:str=None, label:str=None, *args, **kwargs):
         mx = (self.node1.x + self.node2.x) / 2
         my = (self.node1.y + self.node2.y) / 2
         alpha = np.degrees(self.angle)
@@ -73,11 +73,11 @@ class Beam:
             **kwargs,
         )
 
-        if show_lengths:
+        if label != None:
             plt.text(
                 mx,
                 my,
-                f"{self.length:.2f}",
+                f"{label:.2f}",
                 horizontalalignment="center",
                 verticalalignment="center",
                 rotation=alpha,
