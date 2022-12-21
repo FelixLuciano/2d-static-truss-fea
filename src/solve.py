@@ -35,13 +35,13 @@ class Solve:
 
         return self
 
-    def plot_deformation(self, label: str = None, cmap=plt.cm.bwr, *args, **kwargs):
+    def plot_deformation(self, label: str = None, cmap=plt.cm.rainbow, *args, **kwargs):
         self._plot(self.internal_deformation, label, cmap, *args, **kwargs)
 
-    def plot_tension(self, label: str = None, cmap=plt.cm.bwr, *args, **kwargs):
+    def plot_tension(self, label: str = None, cmap=plt.cm.rainbow, *args, **kwargs):
         self._plot(self.internal_tension, label, cmap, *args, **kwargs)
 
-    def plot_force(self, label: str = None, cmap=plt.cm.bwr, *args, **kwargs):
+    def plot_force(self, label: str = None, cmap=plt.cm.rainbow, *args, **kwargs):
         self._plot(self.internal_forces, label, cmap, *args, **kwargs)
 
     def plot(self, *args, **kwargs):
@@ -57,7 +57,7 @@ class Solve:
 
             beam.set_color(color)
 
-        self.plot(*args, **kwargs)
+        self.plot(labels=attr, *args, **kwargs)
         plt.colorbar(sm, label=label)
 
     def _execute_mask(self):
