@@ -133,9 +133,30 @@ pip install https://github.com/FelixLuciano/2d-static-truss-fea/archive/refs/hea
 
 ## Authors
 
-|![](https://avatars.githubusercontent.com/u/62605906?v=4)|![](https://avatars.githubusercontent.com/u/43121361?v=4)|![](https://avatars.githubusercontent.com/u/22255332?v=4)|
-|:-------------------------------------------------------:|:-------------------------------------------------------:|:-------------------------------------------------------:|
-|[Diogo Duarte](https://github.com/DiogoDuarteInsper)     |[Joras Oliveira](https://github.com/JorasOliveira)       |[Luciano Felix Dias](https://github.com/FelixLuciano)    |
+<table width="100%">
+    <tr>
+        <td align="center">
+            <a href="https://github.com/DiogoDuarteInsper"><img src="https://avatars.githubusercontent.com/u/62605906?v=4" /></a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/JorasOliveira"><img src="https://avatars.githubusercontent.com/u/43121361?v=4" /><br /></a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/FelixLuciano"><img src="https://avatars.githubusercontent.com/u/22255332?v=4" /><br /></a>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <a href="https://github.com/DiogoDuarteInsper"><strong>Diogo Duarte</strong></a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/JorasOliveira"><strong>Joras Oliveira</strong></a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/FelixLuciano"><strong>Luciano Felix</strong></a>
+        </td>
+    </tr>
+</table>
 
 
 ## Competition
