@@ -142,13 +142,13 @@ pip install https://github.com/FelixLuciano/2d-static-truss-fea/archive/refs/hea
 <table width="100%">
     <tr>
         <td align="center">
-            <a href="https://github.com/DiogoDuarteInsper"><img src="https://avatars.githubusercontent.com/u/62605906?v=4" style="width: 50%;" /></a>
+            <a href="https://github.com/DiogoDuarteInsper"><img src="https://github.com/DiogoDuarteInsper.png" style="width: 50%;" /></a>
         </td>
         <td align="center">
-            <a href="https://github.com/JorasOliveira"><img src="https://avatars.githubusercontent.com/u/43121361?v=4" style="width: 50%;" /><br /></a>
+            <a href="https://github.com/JorasOliveira"><img src="https://github.com/JorasOliveira.png" style="width: 50%;" /><br /></a>
         </td>
         <td align="center">
-            <a href="https://github.com/FelixLuciano"><img src="https://avatars.githubusercontent.com/u/22255332?v=4" style="width: 50%;" /><br /></a>
+            <a href="https://github.com/FelixLuciano"><img src="https://github.com/FelixLuciano.png" style="width: 50%;" /><br /></a>
         </td>
     </tr>
     <tr>
