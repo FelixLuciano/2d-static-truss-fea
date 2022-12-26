@@ -1,7 +1,6 @@
 from matplotlib import patches
 from matplotlib import pyplot as plt
-from truss_fea import Material, Solve, Truss
-
+from truss_fea import Material, Truss
 
 plt.style.use("seaborn-v0_8")
 

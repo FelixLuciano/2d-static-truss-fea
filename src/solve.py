@@ -5,7 +5,7 @@ import numpy as np
 from .method import Method
 
 
-class Solve():
+class Solve:
     internal_deformation: np.ndarray
     internal_tension: np.ndarray
     internal_forces: np.ndarray

@@ -5,8 +5,8 @@ import numpy as np
 from matplotlib import patches
 from matplotlib import pyplot as plt
 from matplotlib.animation import FuncAnimation
-from truss_fea import Beam, Material, Node, Truss
 from matplotlib.colors import TwoSlopeNorm
+from truss_fea import Beam, Material, Node, Truss
 
 
 plt.style.use("seaborn-v0_8")
@@ -113,8 +113,8 @@ class Bridge(Truss):
 
 
 def make_bridge():
-    LOAD = 120 # kg
-    G = 9.81 # m/s²
+    LOAD = 120  # kg
+    G = 9.81  # m/s²
     MDF_YOUNG_MODULUS = 21_000_000
 
     node1 = Node(0, 0)
@@ -124,7 +124,7 @@ def make_bridge():
     node5 = Node(-60, 0)
     node6 = Node(460, 0)
 
-    MDF = Material(MDF_YOUNG_MODULUS * 1E-3**2 / 1E-3, 3*15)
+    MDF = Material(MDF_YOUNG_MODULUS * 1e-3**2 / 1e-3, 3 * 15)
     bridge = Bridge(node1, node2, node3, node4, steps=8).set_material(MDF)
 
     bridge.make_beam(node5, bridge.arc[0].node2)
@@ -168,7 +168,7 @@ if __name__ == "__main__":
     scale_min = 0.0
 
     for i in range(30):
-        bridge.solve(charge = (i + 1) / 30)
+        bridge.solve(charge=(i + 1) / 30)
         frames.append(deepcopy(bridge))
 
         scale_min = min(scale_min, bridge.internal_forces.min())
@@ -187,7 +187,6 @@ if __name__ == "__main__":
             plot(frames[i], norm)
         else:
             plot(frames[29 - i], norm)
-
 
     ani = FuncAnimation(fig, animate, frames=60)
 

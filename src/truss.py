@@ -1,15 +1,15 @@
 from typing import List, Type
 
 import numpy as np
+from matplotlib import pyplot as plt
 from matplotlib.colors import Colormap, TwoSlopeNorm
-from  matplotlib import pyplot as plt
 
 from .beam import Beam
 from .material import Material
-from .method import Method, GaussSeidel_method
+from .method import GaussSeidel_method, Method
 from .node import Node
-from .solve import Solve
 from .plot import Plot
+from .solve import Solve
 
 
 class Truss(Solve, Plot):
@@ -74,7 +74,12 @@ class Truss(Solve, Plot):
 
         return self
 
-    def solve(self, charge: float = 1.0, method: Method = GaussSeidel_method, tolerance: float = 1e-5):
+    def solve(
+        self,
+        charge: float = 1.0,
+        method: Method = GaussSeidel_method,
+        tolerance: float = 1e-5,
+    ):
         Solve.execute(self, charge, method, tolerance)
 
     def plot(
@@ -87,7 +92,9 @@ class Truss(Solve, Plot):
         norm: Type[TwoSlopeNorm] = None,
         scale_label: str = None,
     ):
-        Plot.execute(self, show_nodes, show_labels, color, values, cmap, norm, scale_label)
+        Plot.execute(
+            self, show_nodes, show_labels, color, values, cmap, norm, scale_label
+        )
 
     @staticmethod
     def execute():

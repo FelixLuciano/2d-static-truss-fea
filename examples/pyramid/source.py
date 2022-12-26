@@ -1,5 +1,5 @@
 from matplotlib import pyplot as plt
-from truss_fea import Truss, Material, Solve
+from truss_fea import Material, Truss
 
 
 plt.style.use("seaborn-v0_8")
@@ -14,7 +14,7 @@ if __name__ == "__main__":
             arg = line.strip("\n").split(" ")
 
             if arg[0] == "":
-                mode +=1
+                mode += 1
                 continue
 
             if mode == 1:
@@ -42,7 +42,7 @@ if __name__ == "__main__":
                 pass
 
         pyramid.solve()
-    
+
         plt.figure(figsize=(10, 4))
         plt.title("Pyramid example")
         plt.xlabel("Length [mm]")

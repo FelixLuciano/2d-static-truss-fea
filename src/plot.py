@@ -10,7 +10,7 @@ from .force import Force
 from .node import Node
 
 
-class Plot():
+class Plot:
     def execute(
         self,
         show_nodes: bool,

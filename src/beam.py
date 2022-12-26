@@ -1,7 +1,7 @@
 import numpy as np
 
-from .node import Node
 from .material import Material
+from .node import Node
 
 
 class Beam:
