@@ -6,6 +6,10 @@ class Displacement:
         self.x = False
         self.y = False
 
+    @property
+    def vec(self):
+        return self.x, self.y
+
     def set_x(self):
         self.x = True
 
@@ -25,6 +29,3 @@ class Displacement:
         self.y = False
 
         return self
-
-    def get_axis(self):
-        return self.x, self.y
