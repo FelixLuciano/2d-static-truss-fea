@@ -1,19 +1,27 @@
 import numpy as np
-from matplotlib import pyplot as plt
 
 from .node import Node
 from .material import Material
 
 
 class Beam:
-    id:int = None
-    material:Material
-    color:str
+    id: int = None
+    node1: Node
+    node2: Node
+    material: Material
+    color: str
 
-    def __init__(self, node1: Node, node2: Node, color:str="#BBB"):
+    def __init__(self, node1: Node, node2: Node, color: str = "#BBB"):
         self.node1 = node1
         self.node2 = node2
         self.color = color
+
+    @property
+    def center(self):
+        cx = (self.node1.x + self.node2.x) / 2
+        cy = (self.node1.y + self.node2.y) / 2
+
+        return cx, cy
 
     @property
     def length(self):
@@ -33,52 +41,38 @@ class Beam:
 
     @property
     def rigidity(self):
-        rigidity = self.material.elasticity * self.material.area / self.length
-        s, c = self.sin_cos
-        a = np.array([ [c, s, 0, 0],
-                       [0, 0, c, s], ])
-        b = np.array([ [1.0, -1.0],
-                       [-1.0, 1.0], ])
+        longitudinal_rigidity = (
+            self.material.elasticity * self.material.area / self.length
+        )
+        sin, cos = self.sin_cos
+        axis = np.array(
+            [
+                [cos, sin, 0.0, 0.0],
+                [0.0, 0.0, cos, sin],
+            ]
+        )
+        signal = np.array(
+            [
+                [1.0, -1.0],
+                [-1.0, 1.0],
+            ]
+        )
 
-        return np.matmul(np.matmul(a.T * rigidity,  b), a)
+        return np.matmul(np.matmul(axis.T * longitudinal_rigidity, signal), axis)
 
-    def get_deformation(self, u1, u2):
-        s, c = self.sin_cos
-        vec = [-c, -s, c, s]
-        pos = [u1[0], u1[1], u2[0], u2[1]]
-
-        return np.dot(vec / self.length, pos)
-
-    def set_material(self, material:Material):
+    def set_material(self, material: Material):
         self.material = material
 
         return self
 
-    def set_color(self, color:str):
+    def set_color(self, color: str):
         self.color = color
 
-    def plot(self, color:str=None, label:str=None, *args, **kwargs):
-        mx = (self.node1.x + self.node2.x) / 2
-        my = (self.node1.y + self.node2.y) / 2
-        alpha = np.degrees(self.angle)
+        return self
 
-        if alpha < -90 and alpha > -270:
-            alpha += 180
+    def get_deformation(self, u1, u2):
+        sin, cos = self.sin_cos
+        vec = [-cos, -sin, cos, sin]
+        pos = [u1[0], u1[1], u2[0], u2[1]]
 
-        plt.plot(
-            [self.node1.x, self.node2.x],
-            [self.node1.y, self.node2.y],
-            c=color or self.color,
-            *args,
-            **kwargs,
-        )
-
-        if label != None:
-            plt.text(
-                mx,
-                my,
-                f"{label:.2f}",
-                horizontalalignment="center",
-                verticalalignment="center",
-                rotation=alpha,
-            )
+        return np.dot(vec / self.length, pos)

@@ -1,24 +1,32 @@
-from typing import List
+from typing import List, Type
 
 import numpy as np
+from matplotlib.colors import Colormap, TwoSlopeNorm
+from  matplotlib import pyplot as plt
 
 from .beam import Beam
 from .material import Material
+from .method import Method, GaussSeidel_method
 from .node import Node
+from .solve import Solve
+from .plot import Plot
 
 
-class Truss:
+class Truss(Solve, Plot):
     nodes: List[Node]
     beams: List[Beam]
     material: Material
 
     def __init__(self):
+        Solve.__init__(self)
+        Plot.__init__(self)
+
         self.nodes = []
         self.beams = []
         self.material = None
 
     def add_node(self, node: Node):
-        last_id = self.nodes[-1].id if len(self.nodes) > 0 else 0
+        last_id = Truss._get_last_id(self.nodes)
 
         if node not in self.nodes:
             node.id = last_id + 1
@@ -28,7 +36,7 @@ class Truss:
         return self
 
     def add_beam(self, beam: Beam):
-        last_id = self.beams[-1].id if len(self.beams) > 0 else 0
+        last_id = Truss._get_last_id(self.beams)
 
         if beam not in self.beams:
             beam.id = last_id + 1
@@ -38,10 +46,7 @@ class Truss:
 
         return self
 
-    def add_truss(self, truss):
-        for node in truss.nodes:
-            self.add_node(node)
-
+    def add_truss(self, truss: Type["Truss"]):
         for beam in truss.beams:
             self.add_beam(beam)
 
@@ -69,11 +74,25 @@ class Truss:
 
         return self
 
-    def plot(self, show_nodes=True, show_labels=True, labels:List[str|int|float]=None, zorder=1, *args, **kwargs):
-        for i, beam in enumerate(self.beams):
-            label = None if not show_labels else labels[i] if labels is not None else beam.length
+    def solve(self, charge: float = 1.0, method: Method = GaussSeidel_method, tolerance: float = 1e-5):
+        Solve.execute(self, charge, method, tolerance)
 
-            beam.plot(label=label, zorder=zorder, *args, **kwargs)
+    def plot(
+        self,
+        show_nodes: bool = True,
+        show_labels: bool = True,
+        color: str = None,
+        values: np.ndarray = None,
+        cmap: Type[Colormap] = plt.cm.rainbow,
+        norm: Type[TwoSlopeNorm] = None,
+        scale_label: str = None,
+    ):
+        Plot.execute(self, show_nodes, show_labels, color, values, cmap, norm, scale_label)
 
-        for node in self.nodes:
-            node.plot(show_nodes=show_nodes, zorder=zorder + 1)
+    @staticmethod
+    def execute():
+        pass
+
+    @staticmethod
+    def _get_last_id(collection):
+        return collection[-1].id if len(collection) > 0 else -1

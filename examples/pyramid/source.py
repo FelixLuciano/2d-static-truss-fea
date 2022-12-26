@@ -41,12 +41,12 @@ if __name__ == "__main__":
             elif mode == 3:
                 pass
 
-        solution = Solve(pyramid).execute()
+        pyramid.solve()
     
         plt.figure(figsize=(10, 4))
         plt.title("Pyramid example")
         plt.xlabel("Length [mm]")
         plt.ylabel("Height [mm]")
         plt.axis("equal")
-        solution.plot_force(label="Internal force [N]")
+        pyramid.plot_force(scale_label="Internal force [N]")
         plt.savefig("examples/pyramid/output.png", bbox_inches="tight")

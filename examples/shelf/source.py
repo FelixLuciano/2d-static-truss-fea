@@ -29,7 +29,7 @@ if __name__ == "__main__":
     node3.displacement.set_x().set_y()
     node4.displacement.set_x().set_y()
 
-    solution = Solve(shelf).execute()
+    shelf.solve()
 
     plt.figure(figsize=(6, 4))
 
@@ -41,5 +41,5 @@ if __name__ == "__main__":
     plt.xlabel("Length [m]")
     plt.ylabel("Height [m]")
     plt.axis("equal")
-    solution.plot_force(label="Internal force [N]")
+    shelf.plot_force(scale_label="Internal force [N]")
     plt.savefig("examples/shelf/output.png", bbox_inches="tight")

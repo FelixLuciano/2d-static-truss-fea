@@ -1,33 +1,25 @@
 from copy import deepcopy
 
-import matplotlib.colors
 import numpy as np
-from matplotlib import pyplot as plt
 
-from .method import GaussSeidel_method, Method
-from .truss import Truss
+from .method import Method
 
 
-class Solve:
-    mask: np.ndarray
-    mask_: np.ndarray
-    rigidity: np.ndarray
-    forces: np.ndarray
-    displacement: np.ndarray
+class Solve():
     internal_deformation: np.ndarray
     internal_tension: np.ndarray
     internal_forces: np.ndarray
-    output: Truss
 
-    def __init__(self, truss: Truss, method: Method = GaussSeidel_method):
-        self.output = deepcopy(truss)
-        self.method = method
+    def __init__(self):
+        self.solution = self
 
-    def execute(self, tol: float = 1e-5):
+    def execute(self, charge: float, method: Method, tolerance: float):
+        self.solution = deepcopy(self)
+
         self._execute_rigidity()
         self._execute_mask()
-        self._execute_forces()
-        self._execute_displacement(self.method, tol)
+        self._execute_forces(charge)
+        self._execute_displacement(method, tolerance)
         self._execute_reactions()
         self._execute_internal_deformation()
         self._execute_internal_tension()
@@ -35,96 +27,81 @@ class Solve:
 
         return self
 
-    def plot_deformation(self, label: str = None, cmap=plt.cm.rainbow, *args, **kwargs):
-        self._plot(self.internal_deformation, label, cmap, *args, **kwargs)
+    def plot_deformation(self, *args, **kwargs):
+        self.solution.plot(values=self.internal_deformation, *args, **kwargs)
 
-    def plot_tension(self, label: str = None, cmap=plt.cm.rainbow, *args, **kwargs):
-        self._plot(self.internal_tension, label, cmap, *args, **kwargs)
+    def plot_tension(self, *args, **kwargs):
+        self.solution.plot(values=self.internal_tension, *args, **kwargs)
 
-    def plot_force(self, label: str = None, cmap=plt.cm.rainbow, *args, **kwargs):
-        self._plot(self.internal_forces, label, cmap, *args, **kwargs)
-
-    def plot(self, *args, **kwargs):
-        self.output.plot(*args, **kwargs)
-
-    def _plot(self, attr: np.ndarray, label: str, cmap, *args, **kwargs):
-        norm = matplotlib.colors.TwoSlopeNorm(vmin=attr.min(), vcenter=0.0, vmax=attr.max(), )
-        sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
-
-        for beam in self.output.beams:
-            value = attr[beam.id - 1]
-            color = cmap(norm(value))
-
-            beam.set_color(color)
-
-        self.plot(labels=attr, *args, **kwargs)
-        plt.colorbar(sm, label=label)
+    def plot_force(self, *args, **kwargs):
+        self.solution.plot(values=self.internal_forces, *args, **kwargs)
 
     def _execute_mask(self):
-        self.mask = np.array(
-            [node.displacement.get_axis() for node in self.output.nodes]
+        self._mask = np.array(
+            [node.displacement.vec for node in self.solution.nodes]
         ).flatten()
-        self.mask_ = np.bitwise_not(self.mask)
+        self._mask_n = np.bitwise_not(self._mask)
 
     def _execute_rigidity(self):
-        size = len(self.output.nodes)
+        size = len(self.solution.nodes)
         K = np.zeros((size * 2, size * 2))
 
-        for beam in self.output.beams:
+        for beam in self.solution.beams:
             Ke = beam.rigidity
-            i1 = (beam.node1.id - 1) * 2
-            i2 = (beam.node2.id - 1) * 2
+            i1 = beam.node1.id * 2
+            i2 = beam.node2.id * 2
 
             K[i1 : i1 + 2, i1 : i1 + 2] += Ke[0:2, 0:2]
             K[i1 : i1 + 2, i2 : i2 + 2] += Ke[0:2, 2:4]
             K[i2 : i2 + 2, i1 : i1 + 2] += Ke[2:4, 0:2]
             K[i2 : i2 + 2, i2 : i2 + 2] += Ke[2:4, 2:4]
 
-        self.rigidity = K
+        self._rigidity = K
 
-    def _get_masked_rigidity(self, mask):
-        return self.rigidity[mask][:, mask]
-
-    def _execute_forces(self):
+    def _execute_forces(self, charge: float):
         F = []
 
-        for node in self.output.nodes:
-            r = node.get_resultant_force()
+        for node in self.solution.nodes:
+            R = node.resultant_force
 
-            F.append(r.x)
-            F.append(r.y)
+            F.append(R.x)
+            F.append(R.y)
 
-        self.forces = np.array(F)
+        self._forces = np.array(F) * charge
 
-    def _execute_displacement(self, method, tol: float):
-        u = np.zeros(self.rigidity.shape[1])
+    def _execute_displacement(self, method: Method, tolerance: float):
+        u = np.zeros(self._rigidity.shape[1])
 
-        u[self.mask_] = method.solve(
-            k=self._get_masked_rigidity(self.mask_), y=self.forces[self.mask_], tol=tol
+        u[self._mask_n] = method.solve(
+            k=self._rigidity[self._mask_n][:, self._mask_n],
+            y=self._forces[self._mask_n],
+            tolerance=tolerance,
         )
 
-        for beam in self.output.beams:
-            i1 = (beam.node1.id - 1) * 2
-            i2 = (beam.node2.id - 1) * 2
+        for beam in self.solution.beams:
+            i1 = beam.node1.id * 2
+            i2 = beam.node2.id * 2
 
             beam.node1.x += u[i1]
             beam.node1.y += u[i1 + 1]
             beam.node2.x += u[i2]
             beam.node2.y += u[i2 + 1]
 
-        self.displacement = u
+        self._displacement = u
 
     def _execute_reactions(self):
-        self.forces[self.mask] = np.matmul(self.rigidity, self.displacement)[self.mask]
+        self._forces[self._mask] = np.matmul(self._rigidity, self._displacement)[
+            self._mask
+        ]
 
     def _execute_internal_deformation(self):
         deformations = []
 
-        for beam in self.output.beams:
-            i1 = (beam.node1.id - 1) * 2
-            i2 = (beam.node2.id - 1) * 2
-            u1 = self.displacement[i1 : i1 + 2]
-            u2 = self.displacement[i2 : i2 + 2]
+        for beam in self.solution.beams:
+            i1 = beam.node1.id * 2
+            i2 = beam.node2.id * 2
+            u1 = self._displacement[i1 : i1 + 2]
+            u2 = self._displacement[i2 : i2 + 2]
             deformation = beam.get_deformation(u1, u2)
 
             deformations.append(deformation)
@@ -132,21 +109,19 @@ class Solve:
         self.internal_deformation = np.array(deformations)
 
     def _execute_internal_tension(self):
-        tensions = []
-
-        for deformation, beam in zip(self.internal_deformation, self.output.beams):
-            tension = deformation * beam.material.elasticity
-
-            tensions.append(tension)
-
-        self.internal_tension = np.array(tensions)
+        self.internal_tension = np.array(
+            [
+                deformation * beam.material.elasticity
+                for deformation, beam in zip(
+                    self.internal_deformation, self.solution.beams
+                )
+            ]
+        )
 
     def _execute_internal_force(self):
-        forces = []
-
-        for tension, beam in zip(self.internal_tension, self.output.beams):
-            force = tension * beam.material.area
-
-            forces.append(force)
-
-        self.internal_forces = np.array(forces)
+        self.internal_forces = np.array(
+            [
+                tension * beam.material.area
+                for tension, beam in zip(self.internal_tension, self.solution.beams)
+            ]
+        )

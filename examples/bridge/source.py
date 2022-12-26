@@ -5,7 +5,8 @@ import numpy as np
 from matplotlib import patches
 from matplotlib import pyplot as plt
 from matplotlib.animation import FuncAnimation
-from truss_fea import Beam, Material, Node, Solve, Truss
+from truss_fea import Beam, Material, Node, Truss
+from matplotlib.colors import TwoSlopeNorm
 
 
 plt.style.use("seaborn-v0_8")
@@ -142,8 +143,9 @@ def make_bridge():
     return bridge
 
 
-def plot(bridge, solution):
+def plot(bridge, norm):
     ax = plt.axes()
+
     ax.add_patch(patches.Rectangle((-70, -70), 70, 70, color="#BBB"))
     ax.add_patch(patches.Rectangle((400, -70), 70, 70, color="#BBB"))
 
@@ -151,29 +153,40 @@ def plot(bridge, solution):
     plt.xlabel("Length [mm]")
     plt.ylabel("Height [mm]")
     plt.axis("equal")
+    plt.tight_layout()
 
     bridge.plot(color="#BBB", show_labels=False, show_nodes=False)
-    solution.plot_force(label="Internal force [N]", show_labels=False, show_nodes=True)
-    plt.tight_layout()
+    bridge.plot_force(norm=norm, scale_label="Internal force [N]", show_labels=False)
 
 
 if __name__ == "__main__":
     bridge = make_bridge()
-    solution = Solve(bridge)
     fig = plt.figure(figsize=(14, 5))
 
     frames = []
+    scale_max = 0.0
+    scale_min = 0.0
+
+    for i in range(30):
+        bridge.solve(charge = (i + 1) / 30)
+        frames.append(deepcopy(bridge))
+
+        scale_min = min(scale_min, bridge.internal_forces.min())
+        scale_max = max(scale_max, bridge.internal_forces.max())
+
+    norm = TwoSlopeNorm(
+        vmin=scale_min,
+        vcenter=0.0,
+        vmax=scale_max,
+    )
 
     def animate(i):
         fig.clear()
 
         if i < 30:
-            solution.execute()
-            plot(bridge, solution)
-
-            frames.append(deepcopy(solution))
+            plot(frames[i], norm)
         else:
-            plot(bridge, frames[30 - i - 1])
+            plot(frames[29 - i], norm)
 
 
     ani = FuncAnimation(fig, animate, frames=60)

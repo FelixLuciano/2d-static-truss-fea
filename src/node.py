@@ -1,8 +1,6 @@
 from typing import List
 
-import matplotlib as mpl
 import numpy as np
-from matplotlib import pyplot as plt
 
 from .displacement import Displacement
 from .force import Force
@@ -20,6 +18,17 @@ class Node:
         self.y = y
         self.forces = []
         self.displacement = Displacement()
+
+    @property
+    def resultant_force(self):
+        r_x = 0
+        r_y = 0
+
+        for force in self.forces:
+            r_x += force.x
+            r_y += force.y
+
+        return Force(r_x, r_y)
 
     def get_distance_from(self, node):
         return np.hypot(self.x - node.x, self.y - node.y)
@@ -43,48 +52,11 @@ class Node:
         if force not in self.forces:
             self.forces.append(force)
 
+        return self
+
     def apply_force(self, x: float, y: float):
         force = Force(x, y)
 
         self.add_force(force)
 
         return force
-
-    def get_resultant_force(self):
-        Rx = 0
-        Ry = 0
-
-        for force in self.forces:
-            Rx += force.x
-            Ry += force.y
-
-        return Force(Rx, Ry)
-
-    def plot(self, show_nodes: bool, zorder: int, *args, **kwargs):
-        dx, dy = self.displacement.get_axis()
-
-        if dx and dy:
-            marker = "X"
-        elif dx:
-            marker = ">"
-        elif dy:
-            marker = "^"
-        elif show_nodes:
-            marker = "o"
-        else:
-            marker = "none"
-
-        plt.scatter(
-            [self.x], [self.y], c="#27B", marker=marker, zorder=zorder, *args, **kwargs
-        )
-
-        if show_nodes and len(self.forces) > 0:
-            resultant = self.get_resultant_force()
-            theta = np.degrees(np.arctan2(resultant.y, resultant.x))
-
-            t = mpl.markers.MarkerStyle(marker=5)
-            t._transform = t.get_transform().rotate_deg(theta)
-
-            plt.scatter(
-                [self.x], [self.y], c="#B22", marker=t, s=100, zorder=zorder + 1
-            )
