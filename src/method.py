@@ -7,7 +7,7 @@ class Method:
 
 class GaussSeidel_method(Method):
     @staticmethod
-    def solve(k: np.ndarray, y: np.ndarray, tol: float = 1e-10):
+    def solve(k: np.ndarray, y: np.ndarray, tolerance: float = 1e-10):
         x = np.zeros_like(y, dtype=np.float64)
         conv = [False] * y.shape[0]
 
@@ -21,7 +21,7 @@ class GaussSeidel_method(Method):
 
                 xi = GaussSeidel_method._xi(k, x, y, i)
 
-                if GaussSeidel_method._get_err(x[i], xi) < tol:
+                if GaussSeidel_method._get_err(x[i], xi) < tolerance:
                     conv[i] = True
 
                 x[i] = xi
