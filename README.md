@@ -25,7 +25,9 @@ In structural engineering, a [beam element](https://en.wikipedia.org/wiki/Beam_(
 
 Beam elements can be made of many materials, varying concrete, steel, timber, and composite materials. They are typically designed to resist loads that are applied along their length, such as gravity, wind and earthquake loads. The strength and stiffness of beam elements are typically determined by the size, shape, and material properties.
 
-![Beam element displacement](assets/image/beam-element.png)
+<p align="center">
+    <img src="assets/image/beam-element.png" alt="Beam element displacement diagram">
+</p>
 
 ```math
 \begin{Bmatrix} 
