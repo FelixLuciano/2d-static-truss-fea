@@ -36,7 +36,7 @@ Beam elements can be made of many materials, varying concrete, steel, timber, an
 \underbrace{
     \begin{bmatrix} 
         \cos(\theta) & \sin(\theta) & 0 & 0 \\
-        0 & 0 & \cos(\theta) & \sin(\theta)\\
+        0 & 0 & \cos(\theta) & \sin(\theta)
     \end{bmatrix}
 }_T
 \cdot
@@ -51,7 +51,7 @@ Beam elements can be made of many materials, varying concrete, steel, timber, an
 ```math
 x=\bar u_2-\bar u_1=
 \begin{bmatrix} 
-    -\cos(\theta) & -\sin(\theta) & \cos(\theta) & \sin(\theta) \\
+    -\cos(\theta) & -\sin(\theta) & \cos(\theta) & \sin(\theta)
 \end{bmatrix}
 \cdot
 \begin{Bmatrix} 
