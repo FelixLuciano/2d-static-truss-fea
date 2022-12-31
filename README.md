@@ -58,34 +58,34 @@ x=\bar u_2-\bar u_1=
     u_1 \\
     v_1 \\
     u_2 \\
-    v_2 \\
+    v_2
 \end{Bmatrix}
 ```
 
 ```math
 \begin{Bmatrix} 
     \bar F_1 \\
-    \bar F_2 \\
+    \bar F_2
 \end{Bmatrix}
 =
 \underbrace{
     \frac{EA}{l}
     \begin{bmatrix} 
         1 & -1 \\
-        -1 & 1 \\
+        -1 & 1
     \end{bmatrix}
 }_{\bar K_e}
 \cdot
 \begin{Bmatrix} 
     \bar u_1 \\
-    \bar u_2 \\
+    \bar u_2
 \end{Bmatrix}
 ```
 
 ```math
 \begin{Bmatrix} 
     F_1 \\
-    F_2 \\
+    F_2
 \end{Bmatrix}
 =
 \underbrace{
@@ -96,7 +96,7 @@ x=\bar u_2-\bar u_1=
     u_1 \\
     v_1 \\
     u_2 \\
-    v_2 \\
+    v_2
 \end{Bmatrix}
 ```
 
