@@ -30,7 +30,7 @@ Beam elements can be made of many materials, varying concrete, steel, timber, an
 ```math
 \begin{Bmatrix} 
     \bar u_1 \\
-    \bar u_2 \\
+    \bar u_2
 \end{Bmatrix}
 =
 \underbrace{
@@ -44,7 +44,7 @@ Beam elements can be made of many materials, varying concrete, steel, timber, an
     u_1 \\
     v_1 \\
     u_2 \\
-    v_2 \\
+    v_2
 \end{Bmatrix}
 ```
 
