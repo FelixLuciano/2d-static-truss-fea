@@ -5,18 +5,14 @@
 
 ## Introduction
 
-A [finite element analysis](https://en.wikipedia.org/wiki/Finite_element_method) (FEA) software is a computer program that uses the finite element method (FEM) to analyze and solve problems in engineering and science. The finite element method is a numerical technique for solving differential equations that describe physical phenomena, such as the behavior of structures under load or the flow of fluids through pipes.
+Large physical systems described by differential equations tend to be subdivided into smaller, simpler parts to solve. [Finite element analysis](https://en.wikipedia.org/wiki/Finite_element_method) (FEA) software is a computer program that uses the finite element method (FEM) to solve a wide range of problems in engineering and science. This method is numerical approximation technique for solving differential equations that describe physical phenomena, such as the behavior of structures under different loads or with different materials.
 
-Finite element analysis software is used in a wide range of engineering and scientific applications, including structural analysis, fluid dynamics, heat transfer, and electromagnetics. It can be used to analyze the performance of structures under different loads, predict the behavior of materials under various conditions, and optimize designs for improved performance.
-
-Some common features of finite element analysis software include the ability to:
-- Model complex geometries and boundary conditions
-- Solve for static, dynamic, and thermal behaviors
-- Analyze nonlinear behavior, such as material plasticity or contact
-- Import and export data from other software programs
-- Generate detailed reports and visualizations of results
-
-There are many different finite element analysis software packages available on the market, ranging from simple programs with a limited range of capabilities to more advanced packages with a wide range of features and functionality.
+This method could be applied in many fields, including structural analysis, fluid dynamics, heat transfer and electromagnetism. Some common features of finite element analysis software include the ability to:
+- Model complex geometries and boundary conditions;
+- Solve static, dynamic, and thermal behaviors;
+- Analyze nonlinear behavior, such as material plasticity or contact;
+- Import and export data from other software programs;
+- Generate detailed reports and results visualizations.
 
 ### Gauss-Seidel method
 
@@ -27,13 +23,11 @@ The [Gauss-Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_met
 
 In structural engineering, a [beam element](https://en.wikipedia.org/wiki/Beam_(structure)) is a structural element that is capable of withstanding load primarily by resisting bending. Beam elements are usually straight and slender, and they are often used to construct the vertical supports of a structure, such as columns, and the horizontal members that transfer loads from the vertical supports to the foundation, such as beams and girders.
 
-Beam elements can be made of various materials, including concrete, steel, timber, and composite materials. They are typically designed to resist loads that are applied along their length, such as gravity loads, wind loads, and earthquake loads. The strength and stiffness of beam elements are typically determined by the size, shape, and material properties of the element.
-
-In structural analysis and design, beam elements are often modeled using mathematical equations that describe the behavior of the element under various load conditions. These equations can be used to predict the deflections, stresses, and strains in the beam element, and to design the element to meet the required strength and stiffness criteria.
+Beam elements can be made of many materials, varying concrete, steel, timber, and composite materials. They are typically designed to resist loads that are applied along their length, such as gravity, wind and earthquake loads. The strength and stiffness of beam elements are typically determined by the size, shape, and material properties.
 
 ![Beam element displacement](assets/image/beam-element.png)
 
-$$
+```math
 \begin{Bmatrix} 
     \bar u_1 \\
     \bar u_2 \\
@@ -52,9 +46,9 @@ $$
     u_2 \\
     v_2 \\
 \end{Bmatrix}
-$$
+```
 
-$$
+```math
 x=\bar u_2-\bar u_1=
 \begin{bmatrix} 
     -\cos(\theta) & -\sin(\theta) & \cos(\theta) & \sin(\theta) \\
@@ -66,9 +60,9 @@ x=\bar u_2-\bar u_1=
     u_2 \\
     v_2 \\
 \end{Bmatrix}
-$$
+```
 
-$$
+```math
 \begin{Bmatrix} 
     \bar F_1 \\
     \bar F_2 \\
@@ -86,9 +80,9 @@ $$
     \bar u_1 \\
     \bar u_2 \\
 \end{Bmatrix}
-$$
+```
 
-$$
+```math
 \begin{Bmatrix} 
     F_1 \\
     F_2 \\
@@ -104,11 +98,11 @@ $$
     u_2 \\
     v_2 \\
 \end{Bmatrix}
-$$
+```
 
-$$
+```math
 \bar F=K_e\cdot x
-$$
+```
 
 ## Instalation
 ```
