@@ -168,6 +168,10 @@ pip install https://github.com/FelixLuciano/2d-static-truss-fea/archive/refs/hea
 
 ## Competition
 
+This project was developed during the semester of 2022, and the Bridge model was conceived to analyze the structure for a competition between classmates. The challenge was to develop a structure that would connect two points in a span of 400 mm that would support the highest load with the lowest weight using MDF boards.
+
+This project earned us first place in the structural efficiency category. We started from the premise that a truss bridge with a cycloid arch would be able to distribute the load uniformly along the structure. In the test, we observed that upon reaching its maximum load, the bridge completely broke, while in other projects the trusses broke at points where the tension was greater.
+
 ### Photos
 <details>
 <summary>Expand</summary>
