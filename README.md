@@ -143,7 +143,7 @@ pip install https://github.com/FelixLuciano/2d-static-truss-fea/archive/refs/hea
 <table width="100%">
     <tr>
         <td align="center">
-            <a href="https://github.com/Dduarte5555"><img src="https://github.com/Dduarte5555" style="width: 50%;" /></a>
+            <a href="https://github.com/Dduarte5555"><img src="https://github.com/Dduarte5555.png" style="width: 50%;" /></a>
         </td>
         <td align="center">
             <a href="https://github.com/JorasOliveira"><img src="https://github.com/JorasOliveira.png" style="width: 50%;" /><br /></a>
@@ -154,7 +154,7 @@ pip install https://github.com/FelixLuciano/2d-static-truss-fea/archive/refs/hea
     </tr>
     <tr>
         <td align="center">
-            <a href="https://github.com/DiogoDuarteInsper"><strong>Diogo Duarte</strong></a>
+            <a href="https://github.com/Dduarte5555"><strong>Diogo Duarte</strong></a>
         </td>
         <td align="center">
             <a href="https://github.com/JorasOliveira"><strong>Joras Oliveira</strong></a>
